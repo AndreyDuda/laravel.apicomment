@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Comment $children
  * @property string  $author_name
  * @property string  $text
+ * @property string  $created_at
+ * @property string  $updated_at
+ * @property string  $deleted_at
  */
 class Comment extends Model
 {
