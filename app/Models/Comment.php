@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int     $id
  * @property int     $post_id
- * @property Comment $children
+ * @property Comment $replies
  * @property string  $author_name
  * @property string  $text
  * @property string  $created_at
@@ -34,7 +34,7 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function children()
+    public function replies()
     {
         return $this->hasMany(Comment::class,  'parent_id');
     }
