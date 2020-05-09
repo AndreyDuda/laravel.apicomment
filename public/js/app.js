@@ -2090,10 +2090,18 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addComment: function addComment(submitData) {
-      this.comments.unshift(submitData);
+      console.log('add');
+      console.log(this.comments);
+      this.comments.unshift(submitData.data);
+      console.log(this.comments);
+      console.log('-------------------');
     },
     editComment: function editComment(editCommentData) {
-      this.comments = this.editItem(this.comments, editCommentData);
+      console.log('edit');
+      console.log(this.comments);
+      this.comments = this.editItem(this.comments, editCommentData.data);
+      console.log(this.comments);
+      console.log("---------------");
     },
     removeItem: function removeItem(object, id) {
       for (var item in object) {
@@ -2120,7 +2128,11 @@ __webpack_require__.r(__webpack_exports__);
       return object;
     },
     replyAddComment: function replyAddComment(replyCommentData) {
-      this.comments = this.putItem(this.comments, replyCommentData);
+      console.log('reply');
+      console.log(this.comments);
+      this.comments = this.putItem(this.comments, replyCommentData.data);
+      console.log(this.comments);
+      console.log('-----------------');
     },
     putItem: function putItem(object, replyCommentData) {
       for (var item in object) {
@@ -2278,7 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.author_name = '';
         _this.text = '';
 
-        _this.$emit('add-comment', response.data);
+        _this.$emit('reply-add-comment', response.data);
       });
     },
     clearForm: function clearForm() {

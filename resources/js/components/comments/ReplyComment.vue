@@ -44,11 +44,12 @@
                     author_name:this.author_name,
                     text: this.text
                 };
+
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf
                 axios.post('/api/comment', replyCommentData, {Accept: 'application/json'}).then((response) => {
                     this.author_name = '';
                     this.text = '';
-                    this.$emit('add-comment', response.data);
+                    this.$emit('reply-add-comment', response.data);
                 });
             },
             clearForm() {

@@ -29,7 +29,8 @@ class Comment extends Model
         'post_id',
         'parent_id',
         'author_name',
-        'text'
+        'text',
+        'replies'
     ];
 
     protected $dates = ['deleted_at'];

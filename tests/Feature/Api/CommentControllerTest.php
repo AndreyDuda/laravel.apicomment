@@ -26,7 +26,8 @@ class CommentControllerTest extends TestCase
         $comment = [
             'post_id' => 1,
             'author_name' => 'name secondName',
-            'text' => 'testing saving comment'
+            'text' => 'testing saving comment',
+            'replies' => null
         ];
 
         $this->json('POST', '/api/comment', $comment, $headers)

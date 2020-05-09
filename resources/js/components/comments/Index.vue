@@ -51,11 +51,19 @@
                 });
             },
             addComment(submitData) {
-                this.comments.unshift(submitData)
+                console.log('add');
+                console.log(this.comments);
+                this.comments.unshift(submitData.data)
+                console.log(this.comments);
+                console.log('-------------------');
             },
 
             editComment(editCommentData) {
-                this.comments = this.editItem(this.comments, editCommentData);
+                console.log('edit');
+                console.log(this.comments);
+                this.comments = this.editItem(this.comments, editCommentData.data);
+                console.log(this.comments);
+                console.log("---------------");
             },
             removeItem(object, id) {
                 for (var item in object) {
@@ -67,6 +75,10 @@
             },
 
             editItem(object, editCommentData){
+
+
+
+
                 for (var item in object) {
                     if (object[item].id != editCommentData.id && object[item].replies != undefined) {
                         object[item] = this.editItem(object[item].replies, editCommentData)
@@ -80,7 +92,11 @@
             },
 
             replyAddComment(replyCommentData) {
-                this.comments = this.putItem(this.comments, replyCommentData);
+                console.log('reply');
+                console.log(this.comments);
+                this.comments = this.putItem(this.comments, replyCommentData.data);
+                console.log(this.comments);
+                console.log('-----------------');
             },
             putItem(object, replyCommentData) {
                 for (var item in object) {

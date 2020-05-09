@@ -41,8 +41,7 @@ class CommentController
     public function store(StoreCommentRequest $request)
     {
         $comment = Comment::create($request->all());
-
-        return response($comment->toArray(), 200);
+        return new CommentResource($comment);
     }
 
     /**
@@ -53,15 +52,8 @@ class CommentController
      */
     public function show($id)
     {
-        $code = 200;
-        try {
-            $result = Comment::find($id)->limit(1)->get();
-        }  catch (\Exception $ex) {
-            $code = 422;
-            $result = ['error' => 'invalid argument'];
-        }
-
-        return CommentResource::collection($result);
+        $result = Comment::find($id);
+        return new CommentResource($result);
     }
 
     /**
@@ -73,9 +65,10 @@ class CommentController
      */
     public function update(UpdateCommentRequest $request, $id)
     {
-        $comment = Comment::where('id', $id)->first();
+        $comment = Comment::find($id);
         $result = $comment->update($request->all());
-        return response()->json($result, 200);
+        $result = Comment::find($id);
+        return new CommentResource($result);
     }
 
     /**
