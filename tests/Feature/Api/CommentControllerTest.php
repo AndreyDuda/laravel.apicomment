@@ -50,7 +50,6 @@ class CommentControllerTest extends TestCase
             ]);
     }
 
-
     public function destroy()
     {
         $headers = [
@@ -64,5 +63,22 @@ class CommentControllerTest extends TestCase
             ->assertJson(['Success' => 'ок']);
 
         $this->assertSoftDeleted($comment);
+    }
+
+    public function testUpdate()
+    {
+        $headers = [
+            'Accept' => 'application/json'
+        ];
+        $comment = factory(Comment::class, 1)->create();
+        $commentUpdate = [
+            'author_name' => 'New Name',
+            'post_id' => 1,
+            'text' => 'text update',
+        ];
+        /*dd($commentUpdate);*/
+        $this->json('put', '/api/comment/' . $comment['0']['id'], $commentUpdate, $headers)
+            ->assertStatus(200);
+
     }
 }

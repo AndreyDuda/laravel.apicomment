@@ -39,7 +39,7 @@
                     text: this.comment.text
                 };
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf
-                axios.post('/api/comment', editCommentData, {Accept: 'application/json'}).then((response) => {
+                axios.put('/api/comment/' + this.comment.id, editCommentData, {Accept: 'application/json'}).then((response) => {
                     this.author_name = '';
                     this.text = '';
                     this.$emit('add-comment', response.data);

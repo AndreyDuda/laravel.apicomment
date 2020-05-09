@@ -75,7 +75,8 @@ class CommentController
     {
         $comment = Comment::where('id', $id)->first();
         $result = $comment->update($request->all());
-        return response()->json($result->toArray(), 200);
+
+        return response()->json($result, 200);
     }
 
     /**

@@ -2003,7 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
         text: this.comment.text
       };
       axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf;
-      axios.post('/api/comment', editCommentData, {
+      axios.put('/api/comment/' + this.comment.id, editCommentData, {
         Accept: 'application/json'
       }).then(function (response) {
         _this.author_name = '';
