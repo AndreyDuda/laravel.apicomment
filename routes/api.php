@@ -7,7 +7,7 @@ Route::prefix('comment')->group(
         Route::get('/{comment_id}', 'Api\CommentController@show');
         Route::post('/', 'Api\CommentController@store');
         Route::put('/{comment_id}', 'Api\CommentController@update');
-        Route::delete('/{comment_id}', 'Api\CommentController@delete');
+        Route::delete('/{comment_id}', 'Api\CommentController@destroy');
     }
 );
 /*Route::fallback(function(){

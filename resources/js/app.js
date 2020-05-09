@@ -19,7 +19,6 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('first-component', require('./components/LaravelUpdated.vue').default);
 Vue.component('index-component', require('./components/comments/Index.vue').default);
 
 

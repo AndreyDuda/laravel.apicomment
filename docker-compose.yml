@@ -48,7 +48,8 @@ services:
       - "MYSQL_PASSWORD=$DB_PASSWORD"
       - "MYSQL_DATABASE=$DB_DATABASE"
   node:
-    image: node:12.7-alpine
+    container_name: api-node
+    image: node:8.6-alpine
     volumes:
       - ./:/var/www
     working_dir: /var/www
