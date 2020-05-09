@@ -38,10 +38,7 @@
         },
         methods: {
             removeComment(id) {
-                axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf
-                axios.delete('/api/comment/' + id, {id:id}, {Accept: 'application/json'}).then((response) => {
-                    this.$emit('remove-comment', id)
-                });
+                this.$emit('remove-comment', id)
             },
             emitEditComment(comment) {
                 this.$emit('emit-edit-comment', comment)

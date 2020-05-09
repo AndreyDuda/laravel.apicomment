@@ -39,19 +39,17 @@
         methods: {
             onSubmitReply() {
                 var replyCommentData = {
+                    post_id: 1,
                     parent_id: this.comment,
                     author_name:this.author_name,
                     text: this.text
                 };
                 axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf
-                axios.put('/api/comment', replyCommentData, {Accept: 'application/json'}).then((response) => {
-                    console.log(response.data);
+                axios.post('/api/comment', replyCommentData, {Accept: 'application/json'}).then((response) => {
                     this.author_name = '';
                     this.text = '';
                     this.$emit('add-comment', response.data);
                 });
-                this.clearForm();
-                this.$emit('reply-add-comment', replyCommentData);
             },
             clearForm() {
                 this.author_name = '';

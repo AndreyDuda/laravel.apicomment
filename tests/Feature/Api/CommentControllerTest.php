@@ -43,29 +43,13 @@ class CommentControllerTest extends TestCase
             'Accept' => 'application/json'
         ];
 
-        $response = $this->json('GET', '/api/comment/' . $comment['0']['id'], [], $headers)
+        $this->json('GET', '/api/comment/' . $comment['0']['id'], [], $headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 "data" => [ 0 =>  ["id","post_id","parent_id","author_name","text","created_at","updated_at",]]
             ]);
-
-        //$response = $response->decodeResponseJson();
-
-       // $this->assertEquals($comment->toArray()[0], $response['data'][0]);
     }
 
-    public function testUpdate()
-    {
-        $headers = [
-            'Accept' => 'application/json'
-        ];
-        $comment = factory(Comment::class, 1)->create();
-        $commentUpdate = ['text' => 'text update'];
-
-        $this->json('put', '/api/comment/' . $comment['0']['id'], $commentUpdate, $headers)
-            ->assertStatus(200);
-
-    }
 
     public function destroy()
     {

@@ -22,7 +22,7 @@ class CommentResource extends JsonResource
             'text' => $this->text,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'children' => CommentResource::collection($this->replies)
+            'replies' => CommentResource::collection($this->replies)
         ];
     }
 }

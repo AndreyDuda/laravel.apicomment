@@ -31,7 +31,6 @@
                 this.$emit('remove-comment', id);
             },
             emitReplyComment(commentData) {
-                console.log(commentData)
                 this.$emit('emit-reply-comment', commentData)
             },
             emitEditComment(commentData){

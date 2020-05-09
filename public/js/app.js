@@ -1994,12 +1994,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmitEdit: function onSubmitEdit() {
+      var _this = this;
+
       var editCommentData = {
         id: this.comment.id,
+        post_id: 1,
         author_name: this.comment.author_name,
         text: this.comment.text
       };
-      this.$emit('edit-comment', editCommentData);
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf;
+      axios.post('/api/comment', editCommentData, {
+        Accept: 'application/json'
+      }).then(function (response) {
+        _this.author_name = '';
+        _this.text = '';
+
+        _this.$emit('add-comment', response.data);
+      });
     }
   }
 });
@@ -2067,7 +2078,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     removeComment: function removeComment(id) {
-      this.comments = this.removeItem(this.comments, id);
+      var _this2 = this;
+
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf;
+      axios["delete"]('/api/comment/' + id, {
+        id: id
+      }, {
+        Accept: 'application/json'
+      }).then(function (response) {
+        _this2.comments = _this2.removeItem(_this2.comments, id);
+      });
     },
     addComment: function addComment(submitData) {
       this.comments.unshift(submitData);
@@ -2179,16 +2199,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     removeComment: function removeComment(id) {
-      var _this = this;
-
-      axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf;
-      axios["delete"]('/api/comment/' + id, {
-        id: id
-      }, {
-        Accept: 'application/json'
-      }).then(function (response) {
-        _this.$emit('remove-comment', id);
-      });
+      this.$emit('remove-comment', id);
     },
     emitEditComment: function emitEditComment(comment) {
       this.$emit('emit-edit-comment', comment);
@@ -2255,22 +2266,20 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var replyCommentData = {
+        post_id: 1,
         parent_id: this.comment,
         author_name: this.author_name,
         text: this.text
       };
       axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf;
-      axios.put('/api/comment', replyCommentData, {
+      axios.post('/api/comment', replyCommentData, {
         Accept: 'application/json'
       }).then(function (response) {
-        console.log(response.data);
         _this.author_name = '';
         _this.text = '';
 
         _this.$emit('add-comment', response.data);
       });
-      this.clearForm();
-      this.$emit('reply-add-comment', replyCommentData);
     },
     clearForm: function clearForm() {
       this.author_name = '';
@@ -2324,7 +2333,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('remove-comment', id);
     },
     emitReplyComment: function emitReplyComment(commentData) {
-      console.log(commentData);
       this.$emit('emit-reply-comment', commentData);
     },
     emitEditComment: function emitEditComment(commentData) {

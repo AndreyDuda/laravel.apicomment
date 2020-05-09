@@ -45,7 +45,10 @@
                 });
             },
             removeComment(id) {
-                this.comments = this.removeItem(this.comments, id);
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = this.csrf
+                axios.delete('/api/comment/' + id, {id:id}, {Accept: 'application/json'}).then((response) => {
+                    this.comments = this.removeItem(this.comments, id);
+                });
             },
             addComment(submitData) {
                 this.comments.unshift(submitData)
