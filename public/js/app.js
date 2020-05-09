@@ -2278,7 +2278,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.author_name = '';
         _this.text = '';
 
-        _this.$emit('add-comment', response.data);
+        _this.$emit('reply-add-comment', response.data);
       });
     },
     clearForm: function clearForm() {
