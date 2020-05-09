@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\Api\Comment\StoreCommentRequest;
+use App\Http\Requests\Api\Comment\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class CommentController
                 }
             )
                 ->with('replies')
-                ->whereNull('parent_id')->paginate($request->get('limit', 25));
+                ->whereNull('parent_id')
+                ->orderBy('created_at', 'DESC')
+                ->paginate($request->get('limit', 25));
         return CommentResource::collection($comment);
     }
 
@@ -68,15 +71,11 @@ class CommentController
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCommentRequest $request, $id)
     {
-        $code = 422;
         $comment = Comment::where('id', $id)->first();
-        if ($comment) {
-            $result = $comment->update($request->all());
-        }
-
-        return response()->json($result, 200);
+        $result = $comment->update($request->all());
+        return response()->json($result->toArray(), 200);
     }
 
     /**

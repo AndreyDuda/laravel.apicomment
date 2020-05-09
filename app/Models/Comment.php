@@ -34,6 +34,8 @@ class Comment extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $softCascade = ['replies'];
+
     public function replies()
     {
         return $this->hasMany(Comment::class,  'parent_id');
