@@ -39,7 +39,10 @@ docker-compose up -d
 </pre>
 
 ## Особенности работы проекта
-
+Страница с комментариями доступана по адрессу 
+<pre>
+<code>http://localhost/</code>
+</pre>
 Посмотреть весь контент GET
 <pre>
 <code>http://localhost/comment</code>
@@ -62,14 +65,11 @@ docker-compose up -d
 <code>http://localhost/comment/id</code>
 </pre>
 
-Так же доступен просмотр отображение всего контента в браузере по ссылке 
-<pre>
-<code>http://localhost/comment</code>
-</pre>      
 ## Тестирование
 
 Тестируется проект при помощи phpunit. Тестирование доступно из командой строки командой:
 <pre>
 <code>docker exec -i aoi-php-fpm bash -c "./vendor/bin/phpunit"</code>
 </pre>
+
 
