@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\Comment\ListCommentRequest;
 use App\Http\Requests\Api\Comment\StoreCommentRequest;
 use App\Http\Requests\Api\Comment\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use Illuminate\Http\Request;
 
 class CommentController
 {
@@ -15,7 +15,7 @@ class CommentController
      *
      *@return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function list(Request $request)
+    public function list(ListCommentRequest $request)
     {
         $comment =
             Comment::when(
@@ -36,24 +36,24 @@ class CommentController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreCommentRequest $request)
     {
         $comment = Comment::create($request->all());
-        return new CommentResource($comment);
+        return (new CommentResource($comment))->response()->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        $result = Comment::find($id);
-        return new CommentResource($result);
+        $comment = Comment::findOrFail($id);
+        return (new CommentResource($comment))->response()->setStatusCode(200);
     }
 
     /**
@@ -66,9 +66,8 @@ class CommentController
     public function update(UpdateCommentRequest $request, $id)
     {
         $comment = Comment::find($id);
-        $result = $comment->update($request->all());
-        $result = Comment::find($id);
-        return new CommentResource($result);
+        $comment->update($request->all());
+        return (new CommentResource($comment))->response()->setStatusCode(200);
     }
 
     /**
@@ -79,7 +78,7 @@ class CommentController
      */
     public function destroy($id)
     {
-        $comment = Comment::where('id', $id)->delete();
+        Comment::where('id', $id)->delete();
         return response()->json(['Success' => 'ок'], 204);
     }
 }

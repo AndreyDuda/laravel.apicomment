@@ -10,3 +10,8 @@ Route::prefix('comment')->group(
         Route::delete('/{comment_id}', 'Api\CommentController@destroy');
     }
 );
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found'], 404);
+});

@@ -2090,18 +2090,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addComment: function addComment(submitData) {
-      console.log('add');
-      console.log(this.comments);
       this.comments.unshift(submitData.data);
-      console.log(this.comments);
-      console.log('-------------------');
     },
     editComment: function editComment(editCommentData) {
-      console.log('edit');
-      console.log(this.comments);
       this.comments = this.editItem(this.comments, editCommentData.data);
-      console.log(this.comments);
-      console.log("---------------");
     },
     removeItem: function removeItem(object, id) {
       for (var item in object) {
@@ -2128,11 +2120,7 @@ __webpack_require__.r(__webpack_exports__);
       return object;
     },
     replyAddComment: function replyAddComment(replyCommentData) {
-      console.log('reply');
-      console.log(this.comments);
       this.comments = this.putItem(this.comments, replyCommentData.data);
-      console.log(this.comments);
-      console.log('-----------------');
     },
     putItem: function putItem(object, replyCommentData) {
       for (var item in object) {
@@ -2201,11 +2189,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "node",
-  data: function data() {
-    return {
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    };
-  },
   props: {
     node: {}
   },
@@ -2218,9 +2201,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     emitReplyComment: function emitReplyComment(comment) {
       this.$emit('emit-reply-comment', comment);
-    },
-    isErrorId: function isErrorId(object) {
-      return object.id == undefined ? true : false;
     }
   }
 });
@@ -2265,7 +2245,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "comment",
   props: {
-    comment: 0
+    comment: {}
   },
   data: function data() {
     return {
@@ -2279,7 +2259,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var replyCommentData = {
         post_id: 1,
-        parent_id: this.comment,
+        parent_id: this.comment.id,
         author_name: this.author_name,
         text: this.text
       };
@@ -6917,7 +6897,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-2c3e5340] {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n}\n.right[data-v-2c3e5340] {\n    float: right;\n}\n/*.deleteted{\n    display: none;\n}*/\n\n", ""]);
+exports.push([module.i, "\nul[data-v-2c3e5340] {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n}\n.right[data-v-2c3e5340] {\n    float: right;\n}\n", ""]);
 
 // exports
 
@@ -39095,7 +39075,7 @@ var render = function() {
             },
             on: {
               click: function($event) {
-                return _vm.emitReplyComment(_vm.node.id)
+                return _vm.emitReplyComment(_vm.node)
               }
             }
           },

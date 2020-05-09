@@ -28,7 +28,7 @@
     export default {
         name: "comment",
         props: {
-            comment: 0,
+            comment: {},
         },
         data() {
             return {
@@ -40,7 +40,7 @@
             onSubmitReply() {
                 var replyCommentData = {
                     post_id: 1,
-                    parent_id: this.comment,
+                    parent_id: this.comment.id,
                     author_name:this.author_name,
                     text: this.text
                 };

@@ -8,7 +8,7 @@
                 </button>
                 <h5 class="card-title">{{ node.author_name }}</h5>
                 <div>{{ node.text }}</div>
-                <button type="button" class="btn btn-link btn-sm right" @click="emitReplyComment(node.id)" data-toggle="modal" data-target="#replyForm">
+                <button type="button" class="btn btn-link btn-sm right" @click="emitReplyComment(node)" data-toggle="modal" data-target="#replyForm">
                     reply
                 </button>
             </div>
@@ -28,11 +28,6 @@
 <script>
     export default {
         name: "node",
-        data() {
-          return {
-              csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          }
-        },
         props: {
             node: {}
         },
@@ -46,9 +41,6 @@
             },
             emitReplyComment(comment) {
                 this.$emit('emit-reply-comment', comment)
-            },
-            isErrorId(object) {
-                return (object.id == undefined) ? true : false;
             }
         }
     };
@@ -62,8 +54,4 @@
     .right {
         float: right;
     }
-    /*.deleteted{
-        display: none;
-    }*/
-
 </style>
